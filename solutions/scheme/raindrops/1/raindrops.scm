@@ -1,0 +1,15 @@
+(import (rnrs))
+
+(define (convert number)
+(define (divisible_by divisor)
+ (= (modulo number divisor) 0))
+(define (set_sound divisor sound)
+ (if (divisible_by divisor)
+   sound
+   ""))
+(define (pling) (set_sound 3 "Pling"))
+(define (plang) (set_sound 5 "Plang"))
+(define (plong) (set_sound 7 "Plong"))
+(if (or (divisible_by 3) (divisible_by 5) (divisible_by 7))
+ (format "~a~a~a" (pling) (plang) (plong))
+ (format "~a" number)))
