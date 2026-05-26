@@ -1,3 +1,5 @@
+use std::fmt::Write;
+
 const NAMES: [&str; 11] = [
     "no", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
 ];
@@ -15,16 +17,16 @@ pub fn recite(start_bottles: u32, take_down: u32) -> String {
     let start_bottles = 1 + start_bottles as usize;
     (start_bottles - take_down as usize..start_bottles)
         .rev()
-        .map(|num_bottles| {
-            format!(
+        .fold(String::new(), |mut output, num_bottles| {
+            let _ = write!(
+                output,
                 "{} hanging on the wall,\n\
                 {0} hanging on the wall,\n\
                 And if one green bottle should accidentally fall,\n\
-                There'll be {} hanging on the wall.",
+                There'll be {} hanging on the wall.\n\n",
                 format_name(num_bottles),
                 format_name(num_bottles - 1).to_lowercase()
-            )
+            );
+            output
         })
-        .collect::<Vec<String>>()
-        .join("\n\n")
 }
